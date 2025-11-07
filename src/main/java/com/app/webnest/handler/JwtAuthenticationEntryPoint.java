@@ -1,5 +1,6 @@
 package com.app.webnest.handler;
 
+import com.app.webnest.domain.dto.ApiResponseDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +24,8 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
-        String json = objectMapper.writeValueAsString("my 응답");
+        ApiResponseDTO body = ApiResponseDTO.of("토큰 없음 또는 인증 실패", null);
+        String json = objectMapper.writeValueAsString(body);
         response.getWriter().write(json);
         response.getWriter().flush();
     }
