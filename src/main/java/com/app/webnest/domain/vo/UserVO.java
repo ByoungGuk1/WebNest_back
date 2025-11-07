@@ -12,7 +12,6 @@ public class UserVO {
   private Date userBirthday;
   private String userEmail;
   private String userPhone;
-  private Integer userAge;
   private Integer userExp;
   private Integer userLevel;
   private String userThumbnailName;
