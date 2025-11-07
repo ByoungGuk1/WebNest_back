@@ -5,7 +5,6 @@ import com.app.webnest.domain.dto.TokenDTO;
 import com.app.webnest.domain.vo.UserVO;
 import com.app.webnest.service.user.OAuthService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

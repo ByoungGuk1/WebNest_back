@@ -3,8 +3,8 @@
 <mapper namespace="com.app.webnest.mapper.UserMapper">
   <select id="select" parameterType="Long" resultType="UserVO">
     SELECT
-    ID, USER_EMAIL, USER_PASSWORD, USER_PICTURE_PATH,
-    USER_PICTURE_NAME, USER_NAME, USER_NICKNAME, USER_PROVIDER
+    ID, USER_EMAIL, USER_PASSWORD, USER_THUMBNAIL_URL,
+    USER_THUMBNAIL_NAME, USER_NAME, USER_NICKNAME, USER_PROVIDER
     FROM TBL_USER
     WHERE ID = #{id}
   </select>
@@ -17,8 +17,8 @@
 
   <select id="selectAll" resultType="UserVO">
     SELECT
-    ID, USER_EMAIL, USER_PASSWORD, USER_PICTURE_PATH,
-    USER_PICTURE_NAME, USER_NAME, USER_NICKNAME, USER_PROVIDER
+    ID, USER_EMAIL, USER_PASSWORD, USER_THUMBNAIL_URL,
+    USER_THUMBNAIL_NAME, USER_NAME, USER_NICKNAME, USER_PROVIDER
     FROM TBL_USER
   </select>
 
@@ -33,20 +33,58 @@
 
   <!-- 일반 멤버 추가 -->
   <insert id="insert" parameterType="UserVO">
-    INSERT INTO TBL_USER(ID, USER_EMAIL, USER_PASSWORD, USER_PICTURE_PATH, USER_PICTURE_NAME, USER_NAME, USER_NICKNAME, USER_PROVIDER)
-    VALUES (SEQ_USER.NEXTVAL, #{userEmail}, #{userPassword}, #{userPicturePath}, #{userPictureName}, #{userName}, #{userNickname}, #{userProvider})
+    INSERT INTO TBL_USER (
+      ID,
+      USER_NAME,
+      USER_BIRTHDAY,
+      USER_EMAIL,
+      USER_PHONE,
+      USER_PASSWORD,
+      USER_NICKNAME,
+      USER_PROVIDER
+    )
+    VALUES (
+      SEQ_USER.NEXTVAL,
+      #{userName},
+      #{userBirthday},
+      #{userEmail},
+      #{userPhone},
+      #{userPassword},
+      #{userName},
+      #{userProvider}
+    )
   </insert>
+
+
 
   <!-- 소셜 멤버 추가 -->
   <insert id="insertSocial" parameterType="UserInsertSocialVO">
-    INSERT INTO TBL_USER(ID, USER_EMAIL, USER_PICTURE_PATH, USER_PICTURE_NAME, USER_NAME, USER_NICKNAME, USER_PROVIDER)
-    VALUES (SEQ_USER.NEXTVAL, #{userEmail}, #{userPicturePath}, #{userPictureName}, #{userName}, #{userNickname}, #{userProvider})
+    INSERT INTO TBL_USER (
+    ID,
+    USER_NAME,
+    USER_BIRTHDAY,
+    USER_EMAIL,
+    USER_PHONE,
+    USER_PASSWORD,
+    USER_NICKNAME,
+    USER_PROVIDER
+    )
+    VALUES (
+    SEQ_USER.NEXTVAL,
+    #{userName},
+    #{userBirthday},
+    #{userEmail},
+    #{userPhone},
+    #{userPassword},
+    #{userName},
+    #{userProvider}
+    )
   </insert>
 
   <update id="update" parameterType="UserVO">
     UPDATE TBL_USER
     SET
-    USER_PASSWORD = #{userPassword}, USER_PICTURE_PATH = #{userPicturePath}, USER_PICTURE_NAME = #{userPictureName},
+    USER_PASSWORD = #{userPassword}, USER_THUMBNAIL_URL = #{userThumbnailUrl}, USER_THUMBNAIL_NAME = #{userThumbnailName},
     USER_NAME = #{userName}, USER_NICKNAME = #{userNickname}, USER_PROVIDER = #{userProvider}
     WHERE ID = #{id}
   </update>

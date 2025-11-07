@@ -22,15 +22,9 @@ public class UserVO {
   private String userProvider;
 
   {
-    this.setUserThumbnailName("default.jpg");
-    this.setUserThumbnailUrl("/default");
     this.setUserNickname(this.getUserName());
     this.setUserProvider("local");
-    this.setUserBirthday(new Date());
-    this.setUserPhone("010-0000-0000");
-    this.setUserAge(0);
-    this.setUserExp(0);
-    this.setUserLevel(1);
+
   }
 
   public UserVO(UserInsertSocialVO userInsertSocialVO) {
