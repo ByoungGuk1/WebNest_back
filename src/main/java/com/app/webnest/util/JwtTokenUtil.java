@@ -2,7 +2,6 @@ package com.app.webnest.util;
 
 import com.app.webnest.exception.JwtTokenException;
 import io.jsonwebtoken.*;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +9,6 @@ import java.util.Date;
 import java.util.Map;
 
 @Component
-@Slf4j
 public class JwtTokenUtil {
 
     @Value("${jwt.secret}")
@@ -18,44 +16,44 @@ public class JwtTokenUtil {
 
     // Access Token 생성
     public String generateAccessToken(Map<String, String> claims) {
-        String memberEmail = claims.get("memberEmail");
+        String userEmail = claims.get("userEmail");
 
 //        Long expirationTimeInMillis =  1000 * 60 * 30L;
         Long expirationTimeInMillis =  1000 * 60L * 60L * 24 * 60L;
         Date expirationDate = new Date(System.currentTimeMillis() + expirationTimeInMillis);
 
         return Jwts.builder()
-                .claim("memberEmail", memberEmail) // 클레임 추가(이메일)
-                .setExpiration(expirationDate) // 만료시간
-                .setIssuer("sehwan")
-                .signWith(SignatureAlgorithm.HS256, secretKey) // SHA-256 알고리즘
-                .setHeaderParam("type", "JWT") // JWT 타입
-                .compact(); // 생성
+            .claim("userEmail", userEmail) // 클레임 추가(이메일)
+            .setExpiration(expirationDate) // 만료시간
+            .setIssuer("감사합니당")
+            .signWith(SignatureAlgorithm.HS256, secretKey) // SHA-256 알고리즘
+            .setHeaderParam("type", "JWT") // JWT 타입
+            .compact(); // 생성
     }
 
     // Refresh Token 생성
     public String generateRefreshToken(Map<String, String> claims) {
-        String memberEmail = claims.get("memberEmail");
+        String userEmail = claims.get("userEmail");
 
         Long expirationTimeInMillis =   1000 * 60L * 60L * 24 * 60L;
         Date expirationDate = new Date(System.currentTimeMillis() + expirationTimeInMillis);
 
         return Jwts.builder()
-                .claim("memberEmail", memberEmail) // 클레임 추가(이메일)
-                .setExpiration(expirationDate) // 만료시간
-                .setIssuer("sehwan")
-                .signWith(SignatureAlgorithm.HS256, secretKey) // SHA-256 알고리즘
-                .setHeaderParam("type", "JWT") // JWT 타입
-                .compact(); // 생성
+            .claim("userEmail", userEmail) // 클레임 추가(이메일)
+            .setExpiration(expirationDate) // 만료시간
+            .setIssuer("감사합니당")
+            .signWith(SignatureAlgorithm.HS256, secretKey) // SHA-256 알고리즘
+            .setHeaderParam("type", "JWT") // JWT 타입
+            .compact(); // 생성
     }
 
     // 토큰이 유효한지 검사
     public boolean verifyJwtToken(String token) {
         try {
             Jwts.parser()
-                    .setSigningKey(secretKey)
-                    .build()
-                    .parseClaimsJws(token);
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token);
             return true;
         } catch (ExpiredJwtException e) { // 파싱이 안될 때
             return false;
@@ -67,7 +65,7 @@ public class JwtTokenUtil {
     }
 
     // 토큰으로 이메일 정보를 추출
-    public Claims getMemberEmailFromToken(String token) {
+    public Claims getUserEmailFromToken(String token) {
         try {
             return Jwts.parser()
                     .setSigningKey(secretKey)

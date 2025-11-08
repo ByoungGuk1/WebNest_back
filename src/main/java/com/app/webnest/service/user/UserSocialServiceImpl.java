@@ -3,7 +3,6 @@ package com.app.webnest.service.user;
 import com.app.webnest.domain.vo.UserSocialVO;
 import com.app.webnest.repository.user.UserSocialDAO;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,5 +23,10 @@ public class UserSocialServiceImpl implements UserSocialService {
   @Override
   public List<String> findAllProvidersById(Long id) {
     return userSocialDAO.findSocialProvidersById(id);
+  }
+
+  @Override
+  public Long findUserIdByProvider(String provider, String providerId) {
+    return userSocialDAO.findUserIdByProvider(provider, providerId);
   }
 }

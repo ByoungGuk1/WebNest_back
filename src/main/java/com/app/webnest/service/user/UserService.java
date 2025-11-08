@@ -27,6 +27,9 @@ public interface UserService {
   // 회원 정보 수정
   public void modify(UserVO userVO);
 
+//  회원 경험치 획득
+  public void gainExp(Long id, int gain);
+
   // 회원 탈퇴
   public void withdraw(Long id);
 

@@ -23,4 +23,13 @@ public class UserSocialDAO {
     return userSocialMapper.selectAll(id);
   }
 
+  // 프로바이더로 유저 아이디 조회
+  public Long findUserIdByProvider(String provider, String providerId){
+    return userSocialMapper.selectUserIdByProvider(provider, providerId);
+  }
+
+  // 소셜 데이터 제거
+  public void delete(Long id){
+    userSocialMapper.deleteByUserId(id);
+  }
 }

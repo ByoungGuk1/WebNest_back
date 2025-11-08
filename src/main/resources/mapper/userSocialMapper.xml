@@ -11,4 +11,17 @@
     FROM TBL_USER_SOCIAL
     WHERE USER_ID = #{userId}
   </select>
+
+    <select id="selectUserIdByProvider" parameterType="map" resultType="Long">
+        SELECT USER_ID
+        FROM TBL_USER_SOCIAL
+        WHERE USER_SOCIAL_PROVIDER = #{provider}
+        AND USER_SOCIAL_PROVIDER_ID = #{providerId}
+    </select>
+
+    <delete id="deleteByUserId" parameterType="Long">
+        DELETE FROM TBL_USER_SOCIAL
+        WHERE USER_ID = #{userId}
+    </delete>
+
 </mapper>

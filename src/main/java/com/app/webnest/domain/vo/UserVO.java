@@ -21,9 +21,9 @@ public class UserVO {
   private String userProvider;
 
   {
-    this.setUserNickname(this.getUserName());
-    this.setUserProvider("local");
-
+    if (this.userProvider == null) this.userProvider = "local";
+    if (this.userThumbnailName == null) this.userThumbnailName = "default.jpg";
+    if (this.userThumbnailUrl == null) this.userThumbnailUrl = "/default";
   }
 
   public UserVO(UserInsertSocialVO userInsertSocialVO) {
@@ -31,8 +31,13 @@ public class UserVO {
     this.userEmail = userInsertSocialVO.getUserEmail();
     this.userThumbnailUrl = userInsertSocialVO.getUserThumbnailUrl();
     this.userThumbnailName = userInsertSocialVO.getUserThumbnailName();
-    this.userName = userInsertSocialVO.getUserName();
-    this.userNickname = userInsertSocialVO.getUserNickname();
+    this.userName = userInsertSocialVO.getUserName() == null ? userInsertSocialVO.getUserNickname() : userInsertSocialVO.getUserName();
+    this.userNickname = userInsertSocialVO.getUserNickname() == null ? userInsertSocialVO.getUserName() : userInsertSocialVO.getUserNickname();
     this.userProvider = userInsertSocialVO.getUserProvider();
+    this.userBirthday = userInsertSocialVO.getUserBirthday();
+    this.userPhone = userInsertSocialVO.getUserPhone();
+    if (this.userProvider == null) this.userProvider = "local";
+    if (this.userThumbnailName == null) this.userThumbnailName = "default.jpg";
+    if (this.userThumbnailUrl == null) this.userThumbnailUrl = "/default";
   }
 }

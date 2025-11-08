@@ -1,38 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.app.webnest.mapper.UserMapper">
-  <select id="select" parameterType="Long" resultType="UserVO">
+    <select id="select" parameterType="Long" resultType="UserVO">
     SELECT
-    ID, USER_EMAIL, USER_PASSWORD, USER_THUMBNAIL_URL,
-    USER_THUMBNAIL_NAME, USER_NAME, USER_NICKNAME, USER_PROVIDER
+        ID,
+        USER_NAME,
+        USER_BIRTHDAY,
+        USER_EMAIL,
+        USER_PHONE,
+        USER_EXP,
+        USER_LEVEL,
+        USER_PASSWORD,
+        USER_NICKNAME,
+        USER_THUMBNAIL_NAME,
+        USER_THUMBNAIL_URL,
+        USER_PROVIDER
     FROM TBL_USER
     WHERE ID = #{id}
-  </select>
+    </select>
 
-  <select id="selectIdByUserEmail" parameterType="String" resultType="Long">
+    <select id="selectIdByUserEmail" parameterType="String" resultType="Long">
     SELECT ID
+        FROM TBL_USER
+    WHERE USER_EMAIL = #{userEmail}
+    </select>
+
+    <select id="selectAll" resultType="UserVO">
+    SELECT
+      ID,
+      USER_NAME,
+      USER_BIRTHDAY,
+      USER_EMAIL,
+      USER_PHONE,
+      USER_EXP,
+      USER_LEVEL,
+      USER_PASSWORD,
+      USER_NICKNAME,
+      USER_THUMBNAIL_NAME,
+      USER_THUMBNAIL_URL,
+      USER_PROVIDER
+    FROM TBL_USER
+    </select>
+
+    <select id="existsByUserEmail" parameterType="String" resultType="_boolean">
+    SELECT
+        CASE
+        WHEN COUNT(ID) > 0 THEN 1 ELSE 0
+        END
     FROM TBL_USER
     WHERE USER_EMAIL = #{userEmail}
-  </select>
+    </select>
 
-  <select id="selectAll" resultType="UserVO">
-    SELECT
-    ID, USER_EMAIL, USER_PASSWORD, USER_THUMBNAIL_URL,
-    USER_THUMBNAIL_NAME, USER_NAME, USER_NICKNAME, USER_PROVIDER
-    FROM TBL_USER
-  </select>
-
-  <select id="existsByUserEmail" parameterType="String" resultType="_boolean">
-    SELECT
-    CASE
-    WHEN COUNT(ID) > 0 THEN 1 ELSE 0
-    END
-    FROM TBL_USER
-    WHERE USER_EMAIL = #{userEmail}
-  </select>
-
-  <!-- 일반 멤버 추가 -->
-  <insert id="insert" parameterType="UserVO">
+    <insert id="insert" parameterType="UserVO">
     INSERT INTO TBL_USER (
       ID,
       USER_NAME,
@@ -41,7 +60,9 @@
       USER_PHONE,
       USER_PASSWORD,
       USER_NICKNAME,
-      USER_PROVIDER
+      USER_PROVIDER,
+      USER_THUMBNAIL_NAME,
+      USER_THUMBNAIL_URL
     )
     VALUES (
       SEQ_USER.NEXTVAL,
@@ -50,48 +71,41 @@
       #{userEmail},
       #{userPhone},
       #{userPassword},
-      #{userName},
-      #{userProvider}
+      #{userNickname},
+      #{userProvider},
+      #{userThumbnailName},
+      #{userThumbnailUrl}
     )
-  </insert>
+    </insert>
 
-
-
-  <!-- 소셜 멤버 추가 -->
-  <insert id="insertSocial" parameterType="UserInsertSocialVO">
-    INSERT INTO TBL_USER (
-    ID,
-    USER_NAME,
-    USER_BIRTHDAY,
-    USER_EMAIL,
-    USER_PHONE,
-    USER_PASSWORD,
-    USER_NICKNAME,
-    USER_PROVIDER
-    )
-    VALUES (
-    SEQ_USER.NEXTVAL,
-    #{userName},
-    #{userBirthday},
-    #{userEmail},
-    #{userPhone},
-    #{userPassword},
-    #{userName},
-    #{userProvider}
-    )
-  </insert>
-
-  <update id="update" parameterType="UserVO">
+    <update id="update" parameterType="UserVO">
     UPDATE TBL_USER
     SET
-    USER_PASSWORD = #{userPassword}, USER_THUMBNAIL_URL = #{userThumbnailUrl}, USER_THUMBNAIL_NAME = #{userThumbnailName},
-    USER_NAME = #{userName}, USER_NICKNAME = #{userNickname}, USER_PROVIDER = #{userProvider}
+        USER_PASSWORD = #{userPassword},
+        USER_THUMBNAIL_URL = #{userThumbnailUrl},
+        USER_THUMBNAIL_NAME = #{userThumbnailName},
+        USER_BIRTHDAY = #{userBirthday},
+        USER_NAME = #{userName},
+        USER_NICKNAME = #{userNickname},
+        USER_PHONE = #{userPhone}
     WHERE ID = #{id}
-  </update>
+    </update>
 
-  <delete id="delete" parameterType="Long">
+    <update id="updateExp" parameterType="map">
+    UPDATE TBL_USER
+        SET USER_EXP = #{gain}
+    WHERE ID = #{id}
+    </update>
+
+    <update id="updateLevel" parameterType="map">
+    UPDATE TBL_USER
+        SET USER_Level = #{level}
+    WHERE ID = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
     DELETE FROM TBL_USER
     WHERE ID = #{id}
-  </delete>
+    </delete>
 
 </mapper>

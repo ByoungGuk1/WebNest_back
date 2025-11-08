@@ -2,6 +2,8 @@ package com.app.webnest.domain.vo;
 
 import lombok.*;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @ToString
@@ -10,19 +12,13 @@ import lombok.*;
 @AllArgsConstructor
 public class UserInsertSocialVO {
   private Long id;
-  private String userEmail;
-  private String userThumbnailUrl;
-  private String userThumbnailName;
   private String userName;
+  private Date userBirthday;
+  private String userEmail;
+  private String userPhone;
+  private String userThumbnailName;
+  private String userThumbnailUrl;
   private String userNickname;
   private String userProvider;
-
-
-  {
-    this.setUserThumbnailName("default.jpg");
-    this.setUserThumbnailUrl("/default");
-    this.setUserNickname(this.getUserName());
-    this.setUserProvider("local");
-  }
 
 }

@@ -1,15 +1,16 @@
 package com.app.webnest.service.user;
 
 import com.app.webnest.domain.dto.TokenDTO;
+import com.app.webnest.domain.dto.UserResponseDTO;
 import com.app.webnest.domain.vo.UserVO;
 import com.app.webnest.exception.JwtTokenException;
 import com.app.webnest.exception.UserException;
 import com.app.webnest.repository.user.UserDAO;
 import com.app.webnest.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -106,7 +107,7 @@ public class OAuthServiceImpl implements OAuthService {
     Map<String,String> claim = new HashMap<>();
 
     // 토큰에서 email을 가져온다.
-    String userEmail = (String) jwtTokenUtil.getMemberEmailFromToken(tokenDTO.getRefreshToken()).get("userEmail");
+    String userEmail = (String) jwtTokenUtil.getUserEmailFromToken(tokenDTO.getRefreshToken()).get("userEmail");
     Long id =  userDAO.findIdByUserEmail(userEmail);
     tokenDTO.setUserId(id);
 
@@ -152,7 +153,7 @@ public class OAuthServiceImpl implements OAuthService {
   public boolean saveBlacklistedToken(TokenDTO tokenDTO) {
 
     // 토큰에서 email을 가져온다.
-    String userEmail = (String) jwtTokenUtil.getMemberEmailFromToken(tokenDTO.getRefreshToken()).get("userEmail");
+    String userEmail = (String) jwtTokenUtil.getUserEmailFromToken(tokenDTO.getRefreshToken()).get("userEmail");
     Long id =  userDAO.findIdByUserEmail(userEmail);
     String refreshToken = tokenDTO.getRefreshToken();
     String key = BLACKLIST_TOKEN_PREFIX + id;
@@ -179,4 +180,23 @@ public class OAuthServiceImpl implements OAuthService {
     } catch (Exception e) {
       return false;
     }
-  }}
+  }
+
+  @Override
+  public String getUserEmailFromAuthentication(Authentication authentication){
+    Object p = authentication.getPrincipal();
+    String result = null;
+    if (p instanceof UserResponseDTO urdto) {
+      result = urdto.getUserEmail();
+    }
+    if (authentication instanceof org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken oat) {
+      var attrs = ((org.springframework.security.oauth2.core.user.OAuth2User) oat.getPrincipal()).getAttributes();
+      String reg = oat.getAuthorizedClientRegistrationId();
+      if ("google".equals(reg)) result =  (String) attrs.get("email");
+      if ("naver".equals(reg))  result =  (String) ((java.util.Map<?,?>) attrs.get("response")).get("email");
+      if ("kakao".equals(reg))  result =  (String) ((java.util.Map<?,?>) attrs.get("kakao_account")).get("email");
+    }
+
+    return result;
+  }
+}

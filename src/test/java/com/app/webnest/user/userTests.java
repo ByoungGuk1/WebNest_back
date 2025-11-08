@@ -1,6 +1,5 @@
 package com.app.webnest.user;
 
-import com.app.webnest.domain.vo.UserSocialVO;
 import com.app.webnest.domain.vo.UserVO;
 import com.app.webnest.mapper.UserMapper;
 import com.app.webnest.mapper.UserSocialMapper;
@@ -75,6 +74,32 @@ public class userTests {
   @Test
   public void userMapperDeleteTest(){
 
+  }
+
+
+  @Test
+  public void userExpGainTest(){
+    userService.gainExp(4L, 60);
+  }
+  @Test
+  public void userOverExpGainTest(){
+    userService.gainExp(4L, 90);
+  }
+  @Test
+  public void userOverLargeExpGainTest(){
+    userService.gainExp(4L, 300);
+  }
+  @Test
+  public void userExpLoseTest(){
+    userService.gainExp(4L, -60);
+  }
+  @Test
+  public void userOverExpLoseTest(){
+    userService.gainExp(4L, -90);
+  }
+  @Test
+  public void userOverLargeExpLoseTest(){
+    userService.gainExp(4L, -300);
   }
 
 }

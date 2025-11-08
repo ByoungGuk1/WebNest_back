@@ -6,6 +6,7 @@ import com.app.webnest.domain.vo.UserSocialVO;
 import com.app.webnest.domain.vo.UserVO;
 import com.app.webnest.exception.UserException;
 import com.app.webnest.repository.user.UserDAO;
+import com.app.webnest.repository.user.UserSocialDAO;
 import com.app.webnest.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -24,6 +26,7 @@ public class UserServiceImpl implements UserService {
   private final UserSocialService userSocialService;
   private final PasswordEncoder passwordEncoder;
   private final JwtTokenUtil jwtTokenUtil;
+  private final UserSocialDAO userSocialDAO;
 
   // 이메일 중복 조회
   @Override
@@ -44,6 +47,9 @@ public class UserServiceImpl implements UserService {
     userVO.setUserPassword(passwordEncoder.encode(userVO.getUserPassword()));
 
     // 3. 회원 가입
+    if(userVO.getUserNickname() == null || userVO.getUserNickname().isBlank()) {
+      userVO.setUserNickname(userVO.getUserName());
+    }
     userDAO.save(userVO);
     return Map.of();
   }
@@ -58,19 +64,34 @@ public class UserServiceImpl implements UserService {
     Map<String, String> claim = new HashMap<>();
     Map<String, String> tokens = new HashMap<>();
 
+    if (userInsertSocialVO.getUserEmail() == null || userInsertSocialVO.getUserEmail().isBlank()) {
+      throw new UserException("소셜 이메일 동의가 필요합니다.");
+    }
     if(userDAO.existsByUserEmail(userInsertSocialVO.getUserEmail())) {
       throw new UserException("이미 존재하는 회원입니다.");
     }
 
     // 회원 가입
-    userDAO.saveSocialUser(userInsertSocialVO);
+    UserVO newUser = new UserVO(userInsertSocialVO);
+    if (newUser.getUserName() == null || newUser.getUserName().isBlank()) {
+      String fallback = (newUser.getUserNickname() != null && !newUser.getUserNickname().isBlank())
+          ? newUser.getUserNickname()
+          : (newUser.getUserProvider() != null ? newUser.getUserProvider() : "SOCIAL") + "_USER_" +
+          java.util.UUID.randomUUID().toString().substring(0,6);
+      newUser.setUserName(fallback);
+      if (newUser.getUserNickname() == null || newUser.getUserNickname().isBlank()) {
+        newUser.setUserNickname(fallback);
+      }
+    }
+
+    userDAO.save(newUser);
 
     // 가입한 회원 정보
     String userEmail = userInsertSocialVO.getUserEmail();
 
     // 가입한 회원의 ID
     Long userId = userDAO.findIdByUserEmail(userEmail);
-
+    claim.put("userEmail", userEmail);
     String refreshToken = jwtTokenUtil.generateRefreshToken(claim);
     String accessToken = jwtTokenUtil.generateAccessToken(claim);
 
@@ -103,9 +124,38 @@ public class UserServiceImpl implements UserService {
     userDAO.update(userVO);
   }
 
+  @Override
+  public void gainExp(Long id, int gain) {
+    UserVO user = userDAO.findById(id).orElseThrow(() -> new UserException("회원 조회 실패(경험치 획득)"));
+    int userExp = user.getUserExp();
+    int userLevel = user.getUserLevel();
+    userExp += gain;
+    while(userExp >= 100) {
+      userLevel ++;
+      userExp -= 100;
+      if(userLevel > 10) {
+        userLevel = 10;
+        userExp = 99;
+        break;
+      }
+    }
+    while (userExp < 0) {
+      userLevel --;
+      userExp += 100;
+      if(userLevel < 1) {
+        userLevel = 1;
+        userExp = 0;
+        break;
+      }
+    }
+    userDAO.editLevel(id, userLevel);
+    userDAO.gainExp(id, userExp);
+  }
+
   // 회원 탈퇴
   @Override
   public void withdraw(Long id) {
+    userSocialDAO.delete(id);
     userDAO.delete(id);
   }
 }
