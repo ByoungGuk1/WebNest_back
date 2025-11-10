@@ -2,12 +2,16 @@ package com.app.webnest.service.user;
 
 import com.app.webnest.domain.dto.TokenDTO;
 import com.app.webnest.domain.vo.UserVO;
+import org.apache.catalina.User;
 import org.springframework.security.core.Authentication;
 
 import java.util.Map;
 
 public interface OAuthService {// 로그인 -> 성공 시 토큰(AccessToken, RefreshToken)
   public Map<String, String> login(UserVO userVO);
+
+//  전화번호로 임시 토큰 발급
+  public Map<String, String> issueTempAccessTokenByPhone(UserVO userVO);
 
   // Redis에 RefreshToken을 저장
   public boolean saveRefreshToken(TokenDTO tokenDTO);

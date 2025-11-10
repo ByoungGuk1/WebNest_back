@@ -26,5 +26,9 @@ public class QuizDAO {
 //    전체 문제수
     public Long selectAllCount(HashMap<String, Object> filters){ return quizMapper.selectListTotalCount(filters); }
 
+//    문제 조회
+    public QuizVO selectById(Long id) { return quizMapper.select(id); }
 
+//    문제 기댓값
+    public String selectExpectationById(Long quizId) { return quizMapper.selectExpectation(quizId); }
 }

@@ -112,6 +112,12 @@ public class UserServiceImpl implements UserService {
     return userDAO.findIdByUserEmail(userEmail);
   }
 
+  @Override
+  public List<String> getUserEmailsByNameAndPhone(UserVO userVO){
+    List<String> userEmails = userDAO.findEmailsByNameAndPhone(userVO);
+    return userEmails;
+  }
+
   // 회원 조회
   @Override
   public UserResponseDTO getUserById(Long id) {
@@ -121,6 +127,8 @@ public class UserServiceImpl implements UserService {
   // 회원 정보 수정
   @Override
   public void modify(UserVO userVO) {
+    if(userVO.getUserPassword() != null && !userVO.getUserPassword().isBlank())
+      userVO.setUserPassword(passwordEncoder.encode(userVO.getUserPassword()));
     userDAO.update(userVO);
   }
 

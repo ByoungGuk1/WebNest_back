@@ -8,6 +8,7 @@ import com.app.webnest.exception.UserException;
 import com.app.webnest.repository.user.UserDAO;
 import com.app.webnest.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
@@ -68,6 +69,23 @@ public class OAuthServiceImpl implements OAuthService {
     // 5. 클라이언트에 토큰 반환
     tokens.put("accessToken", accessToken);
     tokens.put("refreshToken", refreshToken);
+    return tokens;
+  }
+
+  @Override
+  public Map<String, String> issueTempAccessTokenByPhone(UserVO userVO){
+
+    Map<String, String> claim = new HashMap<>();
+    Map<String,String> tokens = new HashMap<>();
+
+    Long userId = userDAO.findIdByUserEmailAndPhone(userVO);
+    UserVO foundUser = userDAO.findById(userId).orElseThrow(() -> new UserException("회원이 없습니다"));
+
+    claim.put("userEmail", foundUser.getUserEmail());
+    String accessToken = jwtTokenUtil.generateAccessToken(claim);
+
+    tokens.put("accessToken", accessToken);
+
     return tokens;
   }
 

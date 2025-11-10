@@ -15,4 +15,10 @@ public interface QuizService {
 
     //    전체 문제수
     public Long quizCount(HashMap<String, Object> filters);
+
+//    문제 조회
+    public QuizVO findQuizById(Long id);
+
+//    결과 기대값조회
+    public String findQuizExpectationById(Long id);
 }

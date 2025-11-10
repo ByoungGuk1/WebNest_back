@@ -17,4 +17,13 @@ public interface QuizMapper {
 
     //    총 문제수
     public Long selectListTotalCount(HashMap<String, Object> filters);
+
+//    퀴즈 조회
+    public QuizVO select(Long id);
+
+//    결과값 응답
+    public String selectExpectation(Long quizId);
+
+
+
 }

@@ -20,9 +20,17 @@
     </select>
 
     <select id="selectIdByUserEmail" parameterType="String" resultType="Long">
-    SELECT ID
+        SELECT ID
         FROM TBL_USER
-    WHERE USER_EMAIL = #{userEmail}
+        WHERE USER_EMAIL = #{userEmail}
+    </select>
+
+    <select id="selectIdByUserEmailAndPhone" parameterType="UserVO" resultType="Long">
+        SELECT ID
+        FROM TBL_USER
+        WHERE
+            USER_NAME = #{userName} AND USER_EMAIL = #{userEmail}
+                AND USER_PHONE = #{userPhone} AND USER_PROVIDER = 'local'
     </select>
 
     <select id="selectAll" resultType="UserVO">
@@ -40,6 +48,15 @@
       USER_THUMBNAIL_URL,
       USER_PROVIDER
     FROM TBL_USER
+    </select>
+
+    <select id="selectEmailByNameAndPhone" parameterType="UserVO" resultType="String">
+        SELECT
+            USER_EMAIL
+        FROM
+            TBL_USER
+        WHERE
+            USER_NAME = #{userName} AND USER_PHONE = #{userPhone} AND USER_PROVIDER = 'local'
     </select>
 
     <select id="existsByUserEmail" parameterType="String" resultType="_boolean">

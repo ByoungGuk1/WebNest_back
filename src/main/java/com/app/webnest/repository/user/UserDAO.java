@@ -29,6 +29,14 @@ public class UserDAO {
     return userMapper.selectIdByUserEmail(userEmail);
   }
 
+  // 회원의 이메일과 전화번호로 안전하게 아이디 조회
+  public Long findIdByUserEmailAndPhone(UserVO userVO){
+    return userMapper.selectIdByUserEmailAndPhone(userVO);
+  }
+
+  // 전화번호로 이메일 찾기
+  public List<String> findEmailsByNameAndPhone (UserVO userVO){ return userMapper.selectEmailByNameAndPhone(userVO); }
+
   // 이메일 중복 확인
   public boolean existsByUserEmail(String userEmail){
     return userMapper.existsByUserEmail(userEmail);

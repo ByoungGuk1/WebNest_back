@@ -8,20 +8,33 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserApi {
 
-    private final UserService userService;
+  private final UserService userService;
 
-    // 스웨거 추가
-    // 회원가입
-    @PostMapping("/register")
-    public ResponseEntity<ApiResponseDTO> register(@RequestBody UserVO userVO){
-        userService.register(userVO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseDTO.of("회원가입이 완료되었습니다")); // 201
-    }
+  // 스웨거 추가
+  // 회원가입
+  @PostMapping("/register")
+  public ResponseEntity<ApiResponseDTO> register(@RequestBody UserVO userVO){
+      userService.register(userVO);
+      return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseDTO.of("회원가입이 완료되었습니다")); // 201
+  }
+
+  //  이메일 찾기
+  @PostMapping("/find-email")
+  public ResponseEntity<ApiResponseDTO> findemail(@RequestBody UserVO userVO){
+    List<String> userEmailList = userService.getUserEmailsByNameAndPhone(userVO);
+    return ResponseEntity.ok(ApiResponseDTO.of("이메일 찾기 완료", userEmailList));
+  }
+
+//  비밀번호 변경
+//  회원 인증으로 발급 받은 토큰을 활용하여 사용자의 비밀번호 변경 (api/publicapi/OAuthApi) -> (api/privateapi/UserOAuthapi)
+//    @GetMapping("/get-tmp-token") -> @PutMapping("/modify")
 
 //    // 회원수정
 //    @PutMapping("/modify")

@@ -2,6 +2,7 @@ package com.app.webnest.mapper;
 
 import com.app.webnest.domain.vo.UserInsertSocialVO;
 import com.app.webnest.domain.vo.UserVO;
+import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,8 +19,14 @@ public interface UserMapper {
   // 회원의 이메일로 아이디 조회
   public Long selectIdByUserEmail(String userEmail);
 
+  // 회원의 이메일과 전화번호로 안전하게 아이디 조회
+  public Long selectIdByUserEmailAndPhone(UserVO userVO);
+
   // 회원 전체 조회
   public List<UserVO> selectAll();
+
+  // 회원의 전화번호로 아이디 조회
+  public List<String> selectEmailByNameAndPhone(UserVO userVO);
 
   // 이메일 중복 확인
   public boolean existsByUserEmail(String userEmail);
