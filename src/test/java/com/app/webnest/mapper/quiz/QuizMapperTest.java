@@ -1,5 +1,6 @@
 package com.app.webnest.mapper.quiz;
 
+import com.app.webnest.domain.vo.QuizVO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,4 +18,8 @@ class QuizMapperTest {
     public void selectTest() {
         log.info("quiz: {}", quizMapper.select(1L));
     }
+
+    @Test
+    public void selectExpectation() {
+        log.info("expectation: {}", quizMapper.selectExpectation(1L)); }
 }

@@ -38,4 +38,9 @@ public class QuizServiceImpl implements QuizService {
             return quizId;
         }
     }
+
+    @Override
+    public String findQuizExpectationById(Long id) {
+        return quizDAO.selectExpectationById(id);
+    }
 }

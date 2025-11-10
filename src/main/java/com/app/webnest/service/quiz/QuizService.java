@@ -18,4 +18,7 @@ public interface QuizService {
 
 //    문제 조회
     public QuizVO findQuizById(Long id);
+
+//    결과 기대값조회
+    public String findQuizExpectationById(Long id);
 }
