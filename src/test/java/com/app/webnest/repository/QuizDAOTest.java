@@ -34,4 +34,9 @@ class QuizDAOTest {
     public void selectByIdTest() {
         log.info("selectById: {}", quizDAO.selectById(1L));
     }
+
+    @Test
+    public void selectByQuizExpectationTest() {
+        log.info("expectation {}", quizDAO.selectExpectationById(1L));
+    }
 }
