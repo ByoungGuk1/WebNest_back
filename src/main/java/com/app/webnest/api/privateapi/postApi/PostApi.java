@@ -16,7 +16,7 @@ import java.util.Map;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/post/*")
+@RequestMapping("/post")
 public class PostApi {
 
     private final PostService postService;
@@ -34,10 +34,19 @@ public class PostApi {
     }
 
     // 문제둥지 전체 조회
+//    @GetMapping("/question")
+//    public List<PostResponseDTO> getQuestionPosts() {
+//        return postService.getQuestionPosts();
+//
+//    }
+    // 문제둥지 전체 조회
     @GetMapping("/question")
     public List<PostResponseDTO> getQuestionPosts() {
-        return postService.getQuestionPosts();
+        List<PostResponseDTO> posts = postService.getQuestionPosts(); // ✅ 리스트 선언
+        System.out.println("🔥 게시글 개수: " + posts.size()); // ✅ size() 찍기
+        return posts; // ✅ 그대로 반환
     }
+
 
     // 상세 조회
     @GetMapping("get-post/{id}")

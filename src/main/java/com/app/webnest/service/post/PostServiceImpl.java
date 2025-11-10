@@ -27,10 +27,18 @@ public class PostServiceImpl implements PostService {
         return postDAO.findOpenPosts();
     }
 
+//    @Override
+//    public List<PostResponseDTO> getQuestionPosts(){
+//        return postDAO.findQuestionPosts();
+//    }
     @Override
-    public List<PostResponseDTO> getQuestionPosts(){
-        return postDAO.findQuestionPosts();
+    public List<PostResponseDTO> getQuestionPosts() {
+        System.out.println("🧩 getQuestionPosts() 호출됨");
+        List<PostResponseDTO> result = postDAO.findQuestionPosts();
+        System.out.println("🧩 DAO 결과 크기: " + result.size());
+        return result;
     }
+
     // 마이페이지 - 열린둥지 전체
     @Override public List<PostResponseDTO> getOpenPostsByUserId(Long userId){
         return postDAO.findOpenPostsByUserId(userId);

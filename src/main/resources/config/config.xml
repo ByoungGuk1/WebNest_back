@@ -14,5 +14,5 @@
         <typeAlias type="com.app.webnest.domain.vo.UserInsertSocialVO" alias="UserInsertSocialVO" />
         <typeAlias type="com.app.webnest.domain.dto.PostResponseDTO" alias="PostResponseDTO" />
     </typeAliases>
-  
+
 </configuration>

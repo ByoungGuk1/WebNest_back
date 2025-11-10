@@ -25,6 +25,7 @@ public class UserOAuthApi {
   @GetMapping("/me")
   public ResponseEntity<ApiResponseDTO> me(Authentication authentication) {
     UserResponseDTO currentUser = getUserByToken(authentication);
+    currentUser.setUserPassword(null);
     return ResponseEntity.status(HttpStatus.OK)
         .body(ApiResponseDTO.of("내 정보 조회 성공", currentUser));
   }

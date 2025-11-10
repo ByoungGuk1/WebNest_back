@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.app.webnest.mapper.quiz.QuizMapper">
-<!--    필터링토글 값받고 필터링해주는 쿼리-->
     <select id="selectAllFilter" parameterType="Map" resultType="QuizVO">
         SELECT ID,
-            QUIZ_DIFFICULT as quizDifficult,
-            QUIZ_LANGUAGE as quizLanguage,
-            QUIZ_TITLE as quizTitle,
-            QUIZ_CATEGORY as quizCategory,
-            QUIZ_EXP as quizExp,
-            QUIZ_DESCRIPTION as quizDescription
+        QUIZ_DIFFICULT as quizDifficult,
+        QUIZ_LANGUAGE as quizLanguage,
+        QUIZ_TITLE as quizTitle,
+        QUIZ_CATEGORY as quizCategory,
+        QUIZ_EXP as quizExp,
+        QUIZ_DESCRIPTION as quizDescription
         FROM TBL_QUIZ
         WHERE 1 = 1
         <if test="quizLanguage != null and quizLanguage != ''">
@@ -27,27 +26,14 @@
         </if>
 
     </select>
-<!--    전체 퀴즈리스트-->
     <select id="selectAll" resultType="QuizVO">
-        SELECT ID, QUIZ_TITLE, QUIZ_DESCRIPTION, QUIZ_CATEGORY, QUIZ_DIFFICULT, QUIZ_LANGUAGE, QUIZ_EXPECTATION, QUIZ_EXP
+        SELECT ID, QUIZ_DIFFICULT, QUIZ_LANGUAGE, QUIZ_TITLE, QUIZ_CATEGORY, QUIZ_EXP, QUIZ_DESCRIPTION
         FROM TBL_QUIZ
     </select>
-<!--    퀴즈 리스트 페이징처리 쿼리-->
+
     <select id="selectListTotalCount" parameterType="Map" resultType="Long" >
         SELECT COUNT(ID)
         FROM TBL_QUIZ
-    </select>
-<!--    퀴즈 조회(싱글 워크스페이스)-->
-    <select id="select" parameterType="Long" resultType="QuizVO">
-        SELECT ID, QUIZ_TITLE, QUIZ_DESCRIPTION, QUIZ_CATEGORY, QUIZ_DIFFICULT, QUIZ_LANGUAGE, QUIZ_EXPECTATION, QUIZ_EXP
-        FROM TBL_QUIZ
-        WHERE ID = #{id}
-    </select>
-<!--    퀴즈 결과기댓값 받고 "실패" 또는 "성공" 응답-->
-    <select id="selectExpectation" resultType="String" parameterType="Long">
-        SELECT QUIZ_EXPECTATION
-        FROM TBL_QUIZ
-        WHERE ID = #{id}
     </select>
 
 </mapper>
