@@ -67,8 +67,6 @@ public class PostApi {
         return postService.getQuestionPostsByUserId(userId);
     }
 
-
-
 //    @PutMapping("modify")
 //    public ResponseEntity<ApiResponseDTO> updatePost(@RequestBody PostVO postVO) {
 //        postService.modify(postVO);
