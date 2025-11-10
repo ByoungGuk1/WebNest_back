@@ -8,9 +8,11 @@
     <typeAliases>
         <typeAlias type="com.app.webnest.domain.vo.MyTestVO" alias="MyTestVO" />
         <typeAlias type="com.app.webnest.domain.vo.QuizVO" alias="QuizVO" />
+        <typeAlias type="com.app.webnest.domain.vo.PostVO" alias="PostVO" />
         <typeAlias type="com.app.webnest.domain.vo.UserVO" alias="UserVO" />
         <typeAlias type="com.app.webnest.domain.vo.UserSocialVO" alias="UserSocialVO" />
         <typeAlias type="com.app.webnest.domain.vo.UserInsertSocialVO" alias="UserInsertSocialVO" />
+        <typeAlias type="com.app.webnest.domain.dto.PostResponseDTO" alias="PostResponseDTO" />
     </typeAliases>
-  
+
 </configuration>

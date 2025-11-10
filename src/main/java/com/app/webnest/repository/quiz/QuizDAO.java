@@ -26,6 +26,5 @@ public class QuizDAO {
 //    전체 문제수
     public Long selectAllCount(HashMap<String, Object> filters){ return quizMapper.selectListTotalCount(filters); }
 
-    public QuizVO selectById(Long id) { return quizMapper.select(id); }
 
 }

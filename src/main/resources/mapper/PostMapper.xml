@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.webnest.mapper.PostMapper">
+
+    <!-- 전체 조회 열린둥지 -->
+    <select id="selectAllOpen" resultType="PostResponseDTO">
+        SELECT TBP.ID, TBP.POST_TITLE, TBP.POST_CONTENT, TBP.POST_VIEW_COUNT,
+        TBP.POST_TYPE, TBP.USER_ID, TBP.POST_CREATE_AT,
+        TBU.USER_EMAIL, TBU.USER_NICKNAME
+        FROM TBL_POST TBP
+        JOIN TBL_USER TBU ON TBP.USER_ID = TBU.ID
+        WHERE TBP.POST_TYPE = 'OPEN'
+        ORDER BY TBP.POST_CREATE_AT DESC
+    </select>
+
+    <!-- 전체 조회 문제둥지 -->
+<!--    <select id="selectAllQuestion" resultType="PostResponseDTO">-->
+<!--        SELECT TBP.ID, TBP.POST_TITLE, TBP.POST_CONTENT, TBP.POST_VIEW_COUNT,-->
+<!--        TBP.POST_TYPE, TBP.USER_ID, TBP.POST_CREATE_AT,-->
+<!--        TBU.USER_EMAIL, TBU.USER_NICKNAME-->
+<!--        FROM TBL_POST TBP-->
+<!--        JOIN TBL_USER TBU ON TBP.USER_ID = TBU.ID-->
+<!--        WHERE TBP.POST_TYPE != 'OPEN'-->
+<!--        ORDER BY TBP.POST_CREATE_AT DESC-->
+<!--    </select>-->
+    <select id="selectAllQuestion" resultType="PostResponseDTO">
+        SELECT
+        TBP.ID, TBP.POST_TITLE, TBP.POST_CONTENT, TBP.POST_VIEW_COUNT,
+        TBP.POST_TYPE, TBP.USER_ID, TBP.POST_CREATE_AT,
+        TBU.USER_EMAIL, TBU.USER_NICKNAME
+        FROM TBL_POST TBP
+        JOIN TBL_USER TBU ON TBP.USER_ID = TBU.ID
+        WHERE UPPER(TBP.POST_TYPE) != 'OPEN'
+        ORDER BY TBP.POST_CREATE_AT DESC
+    </select>
+
+
+
+
+    <!-- 상세 조회-->
+    <select id="select" parameterType="Long" resultType="PostResponseDTO">
+        SELECT TBP.ID, TBP.POST_TITLE, TBP.POST_CONTENT, TBP.POST_VIEW_COUNT, TBP.POST_TYPE, TBP.USER_ID, TBP.POST_CREATE_AT,
+        TBU.USER_EMAIL, TBU.USER_NICKNAME
+        FROM TBL_POST TBP
+        JOIN TBL_USER TBU ON TBP.USER_ID = TBU.ID
+        AND TBP.ID = #{id}
+        ORDER BY TBP.POST_CREATE_AT DESC
+    </select>
+
+    <!--  마이페이지 조회  열린둥지 -->
+    <select id="selectAllOpenByUserId" parameterType="long" resultType="PostResponseDTO">
+        SELECT  TBP.ID,
+        TBP.POST_TITLE,
+        TBP.POST_CONTENT,
+        TBP.POST_VIEW_COUNT,
+        TBP.POST_TYPE,
+        TBP.USER_ID,
+        TBP.POST_CREATE_AT,
+        TBU.USER_EMAIL,
+        TBU.USER_NICKNAME
+        FROM TBL_POST TBP
+        JOIN TBL_USER TBU ON TBP.USER_ID = TBU.ID
+        WHERE TBP.USER_ID = #{userId}
+        AND TBP.POST_TYPE = 'OPEN'
+        ORDER BY TBP.POST_CREATE_AT DESC
+    </select>
+
+    <!-- 마이페이지 조회 - 문제둥지 -->
+    <select id="selectAllQuestionByUserId" parameterType="long" resultType="PostResponseDTO">
+        SELECT  TBP.ID,
+        TBP.POST_TITLE,
+        TBP.POST_CONTENT,
+        TBP.POST_VIEW_COUNT,
+        TBP.POST_TYPE,
+        TBP.USER_ID,
+        TBP.POST_CREATE_AT,
+        TBU.USER_EMAIL,
+        TBU.USER_NICKNAME
+        FROM TBL_POST TBP
+        JOIN TBL_USER TBU ON TBP.USER_ID = TBU.ID
+        WHERE TBP.USER_ID = #{userId}
+        AND TBP.POST_TYPE != 'OPEN'
+        ORDER BY TBP.POST_CREATE_AT DESC
+    </select>
+
+
+    <!--    삭제 - 마이페이지 전체 조회-->
+    <select id="selectAllByUserId" parameterType="Long" resultType="PostResponseDTO">
+        SELECT TBP.ID, TBP.POST_TITLE, TBP.POST_CONTENT, TBP.POST_VIEW_COUNT, TBP.POST_TYPE, TBP.USER_ID, TBP.POST_CREATE_AT,
+        TBU.USER_EMAIL, TBU.USER_NICKNAME
+        FROM TBL_POST TBP
+        JOIN TBL_USER TBU ON TBP.USER_ID = TBU.ID
+        AND TBP.USER_ID = #{userId}
+    </select>
+
+
+
+
+</mapper>

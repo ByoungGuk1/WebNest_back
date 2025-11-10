@@ -1,7 +1,6 @@
 package com.app.webnest.service.quiz;
 
 import com.app.webnest.domain.vo.QuizVO;
-import com.app.webnest.exception.QuizException;
 import com.app.webnest.repository.quiz.QuizDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,14 +27,4 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public Long quizCount(HashMap<String, Object> filters) { return quizDAO.selectAllCount(filters); }
-
-    @Override
-    public QuizVO findQuizById(Long id) {
-        QuizVO quizId = quizDAO.selectById(id);
-        if(quizId == null){
-            throw new QuizException("해당 문제 삭제");
-        } else {
-            return quizId;
-        }
-    }
 }

@@ -4,9 +4,11 @@ import com.app.webnest.domain.dto.ApiResponseDTO;
 import com.app.webnest.domain.vo.QuizVO;
 import com.app.webnest.service.quiz.QuizService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,11 +56,7 @@ public class QuizApi {
         data.put("quizTotalCount", quizTotalCount);
 
         return ResponseEntity.ok(ApiResponseDTO.of("문제리스트 불러오기", data));
+
     };
 
-    @GetMapping("/workspace/quiz/{id}")
-    public ResponseEntity<ApiResponseDTO<QuizVO>> getQuizById(@PathVariable("id") Long id) {
-        QuizVO findQuiz = quizService.findQuizById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponseDTO.of("문제상세조회",  findQuiz));
-    }
 }
