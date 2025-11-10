@@ -6,13 +6,61 @@
     </settings>
 
     <typeAliases>
+        <!-- VO -->
+        <typeAlias type="com.app.webnest.domain.vo.BanVO" alias="BanVO" />
+        <typeAlias type="com.app.webnest.domain.vo.ChatMessageVO" alias="ChatMessageVO" />
+        <typeAlias type="com.app.webnest.domain.vo.ChatRoomVO" alias="ChatRoomVO" />
+        <typeAlias type="com.app.webnest.domain.vo.CommentLikeVO" alias="CommentLikeVO" />
+        <typeAlias type="com.app.webnest.domain.vo.CommentNotificationVO" alias="CommentNotificationVO" />
+        <typeAlias type="com.app.webnest.domain.vo.CommentVO" alias="CommentVO" />
+        <typeAlias type="com.app.webnest.domain.vo.DeclarationVO" alias="DeclarationVO" />
+        <typeAlias type="com.app.webnest.domain.vo.FollowNotificationVO" alias="FollowNotificationVO" />
+        <typeAlias type="com.app.webnest.domain.vo.FollowVO" alias="FollowVO" />
+        <typeAlias type="com.app.webnest.domain.vo.GameJoinVO" alias="GameJoinVO" />
+        <typeAlias type="com.app.webnest.domain.vo.GameRoomVO" alias="GameRoomVO" />
+        <typeAlias type="com.app.webnest.domain.vo.GameScoreVO" alias="GameScoreVO" />
         <typeAlias type="com.app.webnest.domain.vo.MyTestVO" alias="MyTestVO" />
-        <typeAlias type="com.app.webnest.domain.vo.QuizVO" alias="QuizVO" />
+        <typeAlias type="com.app.webnest.domain.vo.PostLikeVO" alias="PostLikeVO" />
+        <typeAlias type="com.app.webnest.domain.vo.PostNotificationVO" alias="PostNotificationVO" />
         <typeAlias type="com.app.webnest.domain.vo.PostVO" alias="PostVO" />
-        <typeAlias type="com.app.webnest.domain.vo.UserVO" alias="UserVO" />
-        <typeAlias type="com.app.webnest.domain.vo.UserSocialVO" alias="UserSocialVO" />
+        <typeAlias type="com.app.webnest.domain.vo.QuizPersonalVO" alias="QuizPersonalVO" />
+        <typeAlias type="com.app.webnest.domain.vo.QuizSubmitVO" alias="QuizSubmitVO" />
+        <typeAlias type="com.app.webnest.domain.vo.QuizVO" alias="QuizVO" />
+        <typeAlias type="com.app.webnest.domain.vo.SubcommentLikeVO" alias="SubcommentLikeVO" />
+        <typeAlias type="com.app.webnest.domain.vo.SubcommentVO" alias="SubcommentVO" />
         <typeAlias type="com.app.webnest.domain.vo.UserInsertSocialVO" alias="UserInsertSocialVO" />
+        <typeAlias type="com.app.webnest.domain.vo.UserSocialVO" alias="UserSocialVO" />
+        <typeAlias type="com.app.webnest.domain.vo.UserVO" alias="UserVO" />
+        <typeAlias type="com.app.webnest.domain.vo.WinningStreakVO" alias="WinningStreakVO" />
+
+        <!-- DTO -->
+        <typeAlias type="com.app.webnest.domain.dto.BanDTO" alias="BanDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.ChatMessageDTO" alias="ChatMessageDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.ChatRoomDTO" alias="ChatRoomDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.CommentDTO" alias="CommentDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.CommentLikeDTO" alias="CommentLikeDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.CommentNotificationDTO" alias="CommentNotificationDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.DeclarationDTO" alias="DeclarationDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.FollowDTO" alias="FollowDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.FollowNotificationDTO" alias="FollowNotificationDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.GameJoinDTO" alias="GameJoinDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.GameRoomDTO" alias="GameRoomDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.GameScoreDTO" alias="GameScoreDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.PostDTO" alias="PostDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.PostLikeDTO" alias="PostLikeDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.PostNotificationDTO" alias="PostNotificationDTO" />
         <typeAlias type="com.app.webnest.domain.dto.PostResponseDTO" alias="PostResponseDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.QuizDTO" alias="QuizDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.QuizPersonalDTO" alias="QuizPersonalDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.QuizResponseDTO" alias="QuizResponseDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.QuizSubmitDTO" alias="QuizSubmitDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.SubcommentDTO" alias="SubcommentDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.SubcommentLikeDTO" alias="SubcommentLikeDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.TokenDTO" alias="TokenDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.UserDTO" alias="UserDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.UserInsertSocialDTO" alias="UserInsertSocialDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.UserResponseDTO" alias="UserResponseDTO" />
+        <typeAlias type="com.app.webnest.domain.dto.WinningStreakDTO" alias="WinningStreakDTO" />
     </typeAliases>
 
 </configuration>

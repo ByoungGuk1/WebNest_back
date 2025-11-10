@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.app.webnest.mapper.post.PostMapper">
+<mapper namespace="com.app.webnest.mapper.PostMapper">
 
     <!-- 전체 조회 열린둥지 -->
     <select id="selectAllOpen" resultType="PostResponseDTO">
@@ -33,9 +33,6 @@
         WHERE UPPER(TBP.POST_TYPE) != 'OPEN'
         ORDER BY TBP.POST_CREATE_AT DESC
     </select>
-
-
-
 
     <!-- 상세 조회-->
     <select id="select" parameterType="Long" resultType="PostResponseDTO">

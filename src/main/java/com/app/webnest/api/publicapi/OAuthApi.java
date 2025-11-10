@@ -3,7 +3,7 @@ package com.app.webnest.api.publicapi;
 import com.app.webnest.domain.dto.ApiResponseDTO;
 import com.app.webnest.domain.dto.TokenDTO;
 import com.app.webnest.domain.vo.UserVO;
-import com.app.webnest.service.user.OAuthService;
+import com.app.webnest.service.OAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpHeaders;

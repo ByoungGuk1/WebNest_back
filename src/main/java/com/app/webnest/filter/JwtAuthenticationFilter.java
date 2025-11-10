@@ -1,7 +1,7 @@
 package com.app.webnest.filter;
 
 import com.app.webnest.domain.dto.UserResponseDTO;
-import com.app.webnest.service.user.UserService;
+import com.app.webnest.service.UserService;
 import com.app.webnest.util.JwtTokenUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

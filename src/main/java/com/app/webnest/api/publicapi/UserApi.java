@@ -2,7 +2,7 @@ package com.app.webnest.api.publicapi;
 
 import com.app.webnest.domain.dto.ApiResponseDTO;
 import com.app.webnest.domain.vo.UserVO;
-import com.app.webnest.service.user.UserService;
+import com.app.webnest.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
